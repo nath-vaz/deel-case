@@ -1,0 +1,12 @@
+models:
+  - name: payments__acceptance_rate_over_time
+    description: 'Dataset describing acceptance rates of payments over time with different time aggregation and dimensions for correlation analysis. One row per aggregation date per time aggregation per country.'
+    columns:
+      - name: aggregation_date
+        description: Initial date of the aggregated period.
+      - name: aggregation_filter
+        description: Filter to choose the desired time aggregation among 'daily', 'weekly', 'monthly'.
+      - name: payment_country
+        description: The two-character ISO country code of the card used for the payment.
+      - name: acceptance_rate_pct
+        description: Acceptance rate (number of accepted payments over total number of payments) in percentage over the aggregated period.
