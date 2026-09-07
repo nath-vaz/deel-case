@@ -4,6 +4,7 @@ models:
     columns:
       - name: globepay_payment_id
         description: ID of the payment in Globepay's system (PK).
+        data_type: varchar
         tests:
           - not_null
           - unique
@@ -15,30 +16,39 @@ models:
                 severity: warn
       - name: deel_payment_id
         description: ID of the payment in Deel (FK).
+        data_type: varchar
         tests:
           - not_null
           - unique
       - name: created_at
         description: Timestamp when the transcation occured.
+        data_type: timestamp
       - name: payment_status
         description: Status of the payment.
+        data_type: boolean
       - name: is_accepted
         description: Whether or not the transcation was accepted.
+        data_type: boolean
       - name: is_cvv_provided
         description: Whether or not the CVV was provided.
+        data_type: boolean
       - name: payment_amount_in_original_currency
         description: Amount of the payment in currency used.
+        data_type: double
       - name: payment_currency
         description: The three-character ISO of the currency used for the payment.
+        data_type: varchar
         tests:
           - accepted_values:
               arguments:
                 values: ["MXN", "CAD", "GBP", "EUR", "USD"]
       - name: payment_country
         description: The two-character ISO country code of the card used for the payment
+        data_type: varchar
         tests:
           - accepted_values:
               arguments:
                 values: ["CA", "UK", "MX", "US", "AE", "FR"]
       - name: currency_rates
         description: Exchange rates of the different currencies compared to US dollar.
+        data_type: varchar

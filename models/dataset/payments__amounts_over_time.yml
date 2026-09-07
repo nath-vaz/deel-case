@@ -2,11 +2,18 @@ models:
   - name: payments__amounts_over_time
     description: Dataset describing payments' amounts over months. One row per month per country.
     columns:
+      - name: payment_country
+        description: The two-character ISO country code of the card used for the payment.
+        data_type: varchar
       - name: month_date
         description: First day of the month.
+        data_type: date
       - name: payments_amount_in_dollars
         description: Total amount of payments over the month.
+        data_type: decimal(38,2)
       - name: accepted_payments_amount_in_dollars
         description: Total amount of accepted payments over the month.
+        data_type: decimal(38,2)
       - name: declined_payments_amount_in_dollars
         description: Total amount of declined payments over the month.
+        data_type: decimal(38,2)

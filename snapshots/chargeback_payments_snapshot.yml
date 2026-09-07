@@ -1,0 +1,3 @@
+snapshots:
+  - name: chargeback_payments_snapshot
+    description: Snapshot of staging table stg_globepay__chargeback_payments to keep a track on chargeback update for every payment.

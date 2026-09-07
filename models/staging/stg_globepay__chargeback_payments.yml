@@ -1,3 +1,16 @@
-snapshots:
-  - name: chargeback_payments_snapshot
-    description: Snapshot of staging table stg_globepay__chargeback_payments to keep a track on chargeback update for every payment.
+models:
+  - name: stg_globepay__chargeback_payments
+    description: Staging table from Globepay of the payments with details on chargeback. One row per payment.
+    columns:
+      - name: globepay_payment_id
+        description: ID of the payment in Globepay's system (PK).
+        data_type: varchar
+      - name: payment_status
+        description: Status of the payment.
+        data_type: boolean
+      - name: payment_source
+        description: Source of the payment.
+        data_type: varchar
+      - name: is_chargeback
+        description: Whether or not the payment was charged back.
+        data_type: boolean

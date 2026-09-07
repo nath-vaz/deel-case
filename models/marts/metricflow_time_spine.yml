@@ -7,4 +7,5 @@ models:
       month boundaries at the edges are complete.
     columns:
       - name: date_day
+        data_type: date
         granularity: day

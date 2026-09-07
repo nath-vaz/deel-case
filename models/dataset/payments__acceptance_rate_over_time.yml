@@ -4,9 +4,13 @@ models:
     columns:
       - name: aggregation_date
         description: Initial date of the aggregated period.
+        data_type: date
       - name: aggregation_filter
         description: Filter to choose the desired time aggregation among 'daily', 'weekly', 'monthly'.
+        data_type: varchar
       - name: acceptance_rate_pct
         description: Acceptance rate (number of accepted payments over total number of payments) in percentage over the aggregated period.
+        data_type: decimal(18,2)
       - name: acceptance_rate_by_value_pct
         description: Acceptance rate by value (sum of accepted payments amounts over total amount of payments) in percentage over the aggregated period.
+        data_type: decimal(18,2)
