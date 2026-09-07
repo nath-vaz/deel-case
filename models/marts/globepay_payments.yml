@@ -58,6 +58,9 @@ semantic_models:
       - name: accepted_payments
         agg: sum
         expr: case when is_accepted then 1 else 0 end
+      - name: declined_payments
+        agg: sum
+        expr: case when is_accepted then 0 else 1 end
       - name: total_amount_usd
         agg: sum
         expr: payment_amount_in_dollars
@@ -87,6 +90,14 @@ metrics:
     type: simple
     type_params:
       measure: accepted_amount_usd
+  - name: declined_payments
+    type: simple
+    type_params:
+      measure: declined_payments
+  - name: declined_amount_usd
+    type: simple
+    type_params:
+      measure: declined_amount_usd
   - name: total_amount_usd
     type: simple
     type_params:
