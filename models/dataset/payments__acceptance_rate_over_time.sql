@@ -10,7 +10,7 @@ select
 from payments
 group by 1, 2
 
-union
+union all
 
 select
     cast(date_trunc('week', created_at) as date) as aggregation_date,
@@ -20,7 +20,7 @@ select
 from payments
 group by 1, 2
 
-union
+union all
 
 select
     cast(date_trunc('month', created_at) as date) as aggregation_date,
