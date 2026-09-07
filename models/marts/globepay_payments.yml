@@ -53,66 +53,84 @@ semantic_models:
 
     measures:
       - name: payments
+        description: Total number of payments.
         agg: count
         expr: globepay_payment_id
       - name: accepted_payments
+        description: The total number of accepted payments.
         agg: sum
         expr: case when is_accepted then 1 else 0 end
       - name: declined_payments
+        description: The total number of declined payments.
         agg: sum
         expr: case when is_accepted then 0 else 1 end
       - name: total_amount_usd
+        description: Total amount of payments in US dollars.
         agg: sum
         expr: payment_amount_in_dollars
-      - name: declined_amount_usd
-        agg: sum
-        expr: case when not is_accepted then payment_amount_in_dollars else 0 end
       - name: accepted_amount_usd
+        description: Total amount of accepted payments in US dollars.
         agg: sum
         expr: case when is_accepted then payment_amount_in_dollars else 0 end
+      - name: declined_amount_usd
+        description: Total amount of declined payments in US dollars.
+        agg: sum
+        expr: case when not is_accepted then payment_amount_in_dollars else 0 end
       - name: chargebacks
+        description: Total number of payments that have been charged back.
         agg: sum
         expr: case when is_chargeback then 1 else 0 end
       - name: chargeback_amount_usd
+        description: Total amount of payments that have been charged back in US dollars.
         agg: sum
         expr: case when is_chargeback then payment_amount_in_dollars else 0 end
 
 metrics:
   - name: payments
+    description: Total number of payments. 
     type: simple
     type_params:
       measure: payments
   - name: accepted_payments
+    description: The total number of accepted payments.
     type: simple
     type_params:
       measure: accepted_payments
   - name: accepted_amount_usd
+    description: Total amount of accepted payments in US dollars.
     type: simple
     type_params:
       measure: accepted_amount_usd
   - name: declined_payments
+    description: The total number of declined payments.
     type: simple
     type_params:
       measure: declined_payments
   - name: declined_amount_usd
+    description: Total amount of declined payments in US dollars.
     type: simple
     type_params:
       measure: declined_amount_usd
   - name: total_amount_usd
+    description: Total amount of payments in US dollars.
     type: simple
     type_params:
       measure: total_amount_usd
   - name: chargebacks
+    description: Total amount of charged back payments in US dollars.
     type: simple
     type_params:
       measure: chargebacks
 
   - name: acceptance_rate
+    description: The % of payments that were accepted
     type: ratio
     type_params: {numerator: accepted_payments, denominator: payments}
   - name: acceptance_rate_by_value
+    description: The % of payment amount that were accepted
     type: ratio
     type_params: {numerator: accepted_amount_usd, denominator: total_amount_usd}
   - name: chargeback_rate
+    description: The % of payments that were charged back (among accepted payments)
     type: ratio
     type_params: {numerator: chargebacks, denominator: accepted_payments}
