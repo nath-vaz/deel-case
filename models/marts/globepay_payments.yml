@@ -5,9 +5,15 @@ models:
       - name: globepay_payment_id
         description: ID of the payment in Globepay's system (PK).
         data_type: varchar
+        tests:
+          - not_null
+          - unique
       - name: deel_payment_id
         description: ID of the payment in Deel's system (FK).
         data_type: varchar
+        tests:
+          - not_null
+          - unique
       - name: created_at
         description: Timestamp when the transcation occured.
         data_type: timestamp

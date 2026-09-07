@@ -1,6 +1,12 @@
 models:
   - name: payments__acceptance_rate_over_time
-    description: 'Dataset describing acceptance rates of payments over time with different time aggregation and dimensions for correlation analysis. One row per aggregation date per time aggregation per country.'
+    description: 'Dataset describing acceptance rates of payments over time with different time aggregations. One row per aggregation date per time aggregation.'
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - aggregation_date
+              - aggregation_filter
     columns:
       - name: aggregation_date
         description: Initial date of the aggregated period.

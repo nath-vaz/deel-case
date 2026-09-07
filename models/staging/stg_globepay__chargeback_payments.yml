@@ -5,6 +5,9 @@ models:
       - name: globepay_payment_id
         description: ID of the payment in Globepay's system (PK).
         data_type: varchar
+        tests:
+          - not_null
+          - unique
       - name: payment_status
         description: Status of the payment.
         data_type: boolean

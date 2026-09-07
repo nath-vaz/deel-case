@@ -1,6 +1,12 @@
 models:
   - name: payments__amounts_over_time
     description: Dataset describing payments' amounts over months. One row per month per country.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - payment_country
+              - month_date
     columns:
       - name: payment_country
         description: The two-character ISO country code of the card used for the payment.
