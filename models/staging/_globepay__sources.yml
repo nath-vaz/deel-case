@@ -1,0 +1,13 @@
+sources:
+  - name: globepay
+    description: >
+      Raw payment data from the Globepay payment processor. In this case study
+      the data is loaded from CSV files via dbt seeds (run `dbt seed` before
+      building the models); in production this would point to the tables loaded
+      by the ingestion pipeline.
+    schema: main
+    tables:
+      - name: globepay_acceptance_payments
+        description: Raw acceptance payments from Globepay's acceptance report. One row per payment.
+      - name: globepay_chargeback_payments
+        description: Raw chargeback payments from Globepay's chargeback report. One row per payment.

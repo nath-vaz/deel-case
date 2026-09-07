@@ -6,7 +6,7 @@
 
 with source as (
     select *
-    from {{ ref('globepay_acceptance_payments') }}
+    from {{ source('globepay', 'globepay_acceptance_payments') }}
 
     {% if is_incremental() %}
 
