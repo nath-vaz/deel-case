@@ -1,0 +1,107 @@
+models:
+  - name: globepay_payments
+    description: 'Mart table of the payments with details on acceptance and chargeback. It contains one row per payment.'
+    columns:
+      - name: globepay_payment_id
+        description: ID of the payment in Globepay's system (PK).
+      - name: deel_payment_id
+        description: ID of the payment in Deel's system (FK).
+      - name: created_at
+        description: Timestamp when the transcation occured.
+      - name: is_accepted
+        description: Whether or not the transcation was accepted.
+      - name: is_cvv_provided
+        description: Whether or not the CVV was provided.
+      - name: payment_amount_in_original_currency
+        description: Amount of the payment in currency used.
+      - name: payment_amount_in_dollars
+        description: Amount of the payment in US dollar.
+      - name: payment_currency
+        description: The three-character ISO of the currency used for the payment.
+      - name: payment_country
+        description: The two-character ISO country code of the card used for the payment.
+      - name: currency_rates
+        description: Exchange rates of the different currencies compared to US dollar.
+      - name: is_chargeback
+        description: Whether or not the payment was chargeback.
+
+semantic_models:
+  - name: globepay_payments
+    defaults:
+      agg_time_dimension: created_at
+    description: |
+      Mart table of the payments with details on acceptance and chargeback. It contains one row per payment.
+    model: ref('globepay_payments')
+    entities:
+      - name: payment_id
+        type: primary
+        expr: globepay_payment_id
+    dimensions:
+      - name: created_at
+        expr: created_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: is_accepted
+        type: categorical
+      - name: is_cvv_provided
+        type: categorical
+      - name: payment_country
+        type: categorical
+      - name: payment_currency
+        type: categorical
+
+    measures:
+      - name: payments
+        agg: count
+        expr: globepay_payment_id
+      - name: accepted_payments
+        agg: sum
+        expr: case when is_accepted then 1 else 0 end
+      - name: total_amount_usd
+        agg: sum
+        expr: payment_amount_in_dollars
+      - name: declined_amount_usd
+        agg: sum
+        expr: case when not is_accepted then payment_amount_in_dollars else 0 end
+      - name: accepted_amount_usd
+        agg: sum
+        expr: case when is_accepted then payment_amount_in_dollars else 0 end
+      - name: chargebacks
+        agg: sum
+        expr: case when is_chargeback then 1 else 0 end
+      - name: chargeback_amount_usd
+        agg: sum
+        expr: case when is_chargeback then payment_amount_in_dollars else 0 end
+
+metrics:
+  - name: payments
+    type: simple
+    type_params:
+      measure: payments
+  - name: accepted_payments
+    type: simple
+    type_params:
+      measure: accepted_payments
+  - name: accepted_amount_usd
+    type: simple
+    type_params:
+      measure: accepted_amount_usd
+  - name: total_amount_usd
+    type: simple
+    type_params:
+      measure: total_amount_usd
+  - name: chargebacks
+    type: simple
+    type_params:
+      measure: chargebacks
+
+  - name: acceptance_rate
+    type: ratio
+    type_params: {numerator: accepted_payments, denominator: payments}
+  - name: acceptance_rate_by_value
+    type: ratio
+    type_params: {numerator: accepted_amount_usd, denominator: total_amount_usd}
+  - name: chargeback_rate
+    type: ratio
+    type_params: {numerator: chargebacks, denominator: accepted_payments}

@@ -1,0 +1,10 @@
+models:
+  - name: metricflow_time_spine
+    description: >
+      Daily time spine required by the dbt Semantic Layer to compute metrics
+      (aggregates to weekly/monthly are derived from this day grain). Covers
+      1 month before/after the payments data range (Jan-Jul 2019) so week and
+      month boundaries at the edges are complete.
+    columns:
+      - name: date_day
+        granularity: day
