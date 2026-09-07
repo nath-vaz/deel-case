@@ -1,0 +1,8 @@
+data_tests:
+  - name: assert_acceptance_rate_between_range
+    description: >
+      Acceptance rate is a percentage that stays between O and 100%.
+
+  - name: assert_positive_payment_amount
+    description: >
+      Payment's amount is positive
