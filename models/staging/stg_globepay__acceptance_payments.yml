@@ -1,0 +1,44 @@
+models:
+  - name: stg_globepay__acceptance_payments
+    description: Staging table from Globepay of the payments with details on acceptance. One row per payment.
+    columns:
+      - name: globepay_payment_id
+        description: ID of the payment in Globepay's system (PK).
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('stg_globepay__chargeback_payments')
+                field: globepay_payment_id
+              config:
+                severity: warn
+      - name: deel_payment_id
+        description: ID of the payment in Deel (FK).
+        tests:
+          - not_null
+          - unique
+      - name: created_at
+        description: Timestamp when the transcation occured.
+      - name: payment_status
+        description: Status of the payment.
+      - name: is_accepted
+        description: Whether or not the transcation was accepted.
+      - name: is_cvv_provided
+        description: Whether or not the CVV was provided.
+      - name: payment_amount_in_original_currency
+        description: Amount of the payment in currency used.
+      - name: payment_currency
+        description: The three-character ISO of the currency used for the payment.
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["MXN", "CAD", "GBP", "EUR", "USD"]
+      - name: payment_country
+        description: The two-character ISO country code of the card used for the payment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["CA", "UK", "MX", "US", "AE", "FR"]
+      - name: currency_rates
+        description: Exchange rates of the different currencies compared to US dollar.
