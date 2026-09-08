@@ -29,6 +29,8 @@ models:
       - name: payment_amount_in_dollars
         description: Amount of the payment in US dollar.
         data_type: decimal(18,2)
+        tests:
+          - not_null
       - name: payment_currency
         description: The three-character ISO of the currency used for the payment.
         data_type: varchar
@@ -37,7 +39,7 @@ models:
         data_type: varchar
       - name: currency_rates
         description: Exchange rates of the different currencies compared to US dollar.
-        data_type: varchar
+        data_type: json
       - name: is_chargeback
         description: Whether or not the payment was chargeback.
         data_type: boolean

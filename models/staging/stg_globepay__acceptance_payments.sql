@@ -29,7 +29,7 @@ renamed as (
         amount as payment_amount_in_original_currency,
         currency as payment_currency,
         country as payment_country,
-        rates as currency_rates,
+        cast(replace(replace(rates, '''', '"'), 'None', 'null') as json) as currency_rates
     from source
 )
 

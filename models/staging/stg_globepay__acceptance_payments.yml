@@ -51,4 +51,4 @@ models:
                 values: ["CA", "UK", "MX", "US", "AE", "FR"]
       - name: currency_rates
         description: Exchange rates of the different currencies compared to US dollar.
-        data_type: varchar
+        data_type: json
