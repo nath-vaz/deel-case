@@ -106,50 +106,60 @@ semantic_models:
 
 metrics:
   - name: payments
-    description: Total number of payments. 
+    label: Payments
+    description: Total number of payments.
     type: simple
     type_params:
       measure: payments
   - name: accepted_payments
+    label: Accepted payments
     description: The total number of accepted payments.
     type: simple
     type_params:
       measure: accepted_payments
   - name: accepted_amount_usd
+    label: Accepted amount (USD)
     description: Total amount of accepted payments in US dollars.
     type: simple
     type_params:
       measure: accepted_amount_usd
   - name: declined_payments
+    label: Declined payments
     description: The total number of declined payments.
     type: simple
     type_params:
       measure: declined_payments
   - name: declined_amount_usd
+    label: Declined amount (USD)
     description: Total amount of declined payments in US dollars.
     type: simple
     type_params:
       measure: declined_amount_usd
   - name: total_amount_usd
+    label: Total amount (USD)
     description: Total amount of payments in US dollars.
     type: simple
     type_params:
       measure: total_amount_usd
   - name: chargebacks
-    description: Total amount of charged back payments in US dollars.
+    label: Chargebacks
+    description: Total number of payments that have been charged back.
     type: simple
     type_params:
       measure: chargebacks
 
   - name: acceptance_rate
+    label: Acceptance rate
     description: The % of payments that were accepted
     type: ratio
     type_params: {numerator: accepted_payments, denominator: payments}
   - name: acceptance_rate_by_value
+    label: Acceptance rate by value
     description: The % of payment amount that were accepted
     type: ratio
     type_params: {numerator: accepted_amount_usd, denominator: total_amount_usd}
   - name: chargeback_rate
+    label: Chargeback rate
     description: The % of payments that were charged back (among accepted payments)
     type: ratio
     type_params: {numerator: chargebacks, denominator: accepted_payments}
